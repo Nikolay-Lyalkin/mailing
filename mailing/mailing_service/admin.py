@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RecipientMailing, Message, Mailing
+from .models import RecipientMailing, Message, Mailing, MailingAttempt, NumAttempt
 
 
 @admin.register(RecipientMailing)
@@ -31,3 +31,22 @@ class MailingAdmin(admin.ModelAdmin):
     def get_recipients(self, obj):
         return "\n".join([p.recipient for p in obj.recipients.all()])
 
+
+@admin.register(MailingAttempt)
+class MailingAttemptAdmin(admin.ModelAdmin):
+    list_display = (
+        "datetime_attempt",
+        "status",
+        "mail_server_response",
+        "mailing"
+    )
+
+
+@admin.register(NumAttempt)
+class NumAttemptAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "total_attempt",
+        "successful_attempt",
+        "unsuccessful_attempt"
+    )

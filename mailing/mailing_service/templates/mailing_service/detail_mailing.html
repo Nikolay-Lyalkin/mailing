@@ -1,0 +1,22 @@
+<div class="modal fade" id="detail_mailing" tabindex="-1" aria-labelledby="detail_mailingLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="detail_mailingLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container">
+                <div class="modal-body">
+                    <h5> Статус рассылки: {{ mail.status }} </h5>
+                    <h5> Тема письма: "{{ mail.messages }}" </h5>
+                    <h6> Получатели: {% for recipient in mail.recipients.all %} {{ recipient.full_name }} -
+                        {{ recipient.email }} ,
+                        {% endfor %}</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+            </div>
+        </div>
+    </div>
+</div>
