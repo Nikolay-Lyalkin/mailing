@@ -14,17 +14,10 @@
             <div class="card-body">
                 <h6 class="card-title"> {{ recipient.email }} </h6>
                 <p class="card-text"> {{ recipient.comment|truncatechars:50 }} </p>
-                <a href="openModal" class="btn btn-outline-primary" data-bs-toggle="modal"
-                   data-bs-target="#exampleModal">Посмотреть</a>
-                {% include 'mailing_service/detail_recipient.html' %}
+                <a href="{% url 'mailing_service:detail_recipient_views' recipient.pk %}"
+                   class="btn btn-outline-primary">Посмотреть</a>
                 <a href="{% url 'mailing_service:update_recipient_views' recipient.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
-                <a href="openModal" class="btn btn-outline-danger"
-                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 6.50rem; --bs-btn-font-size: .75rem;"
-                   data-bs-toggle="modal"
-                   data-bs-target="#delete_recipient">Удалить</a>
-                {% include 'mailing_service/delete_recipient.html' %}
-
             </div>
         </div>
     </div>

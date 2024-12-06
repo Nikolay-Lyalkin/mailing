@@ -13,34 +13,12 @@
             <h5 class="card-header"> {{ mail.status }} </h5>
             <div class="card-body">
                 <h5 class="card-title"> {{ mail.messages }} </h5>
-                <p class="card-text"> Получатели: {% for recipient in mail.recipients.all %} {{ recipient.full_name }} -
-                    {{ recipient.email }} ,
+                <p class="card-text"> Получатели:<br>{% for recipient in mail.recipients.all %} {{ recipient.full_name }}
                     {% endfor %} </p>
-                <a href="openModal" class="btn btn-outline-primary" data-bs-toggle="modal"
-                   data-bs-target="#detail_mailing">Посмотреть</a>
-                {% include 'mailing_service/detail_mailing.html' %}
+                <a href="{% url 'mailing_service:detail_mailing_views' mail.pk %}"
+                   class="btn btn-outline-primary">Посмотреть</a>
                 <a href="{% url 'mailing_service:update_mailing_views' mail.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
-                {% if mail.recipients.all %}
-                <form method="post" action="{% url 'mailing_service:send_mail_views' mail.pk %}">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-success mb-1 mt-1"
-                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 6.30rem; --bs-btn-font-size: .75rem;"
-                            type="submit"> Рассылка
-                    </button>
-                </form>
-                {% else %}
-                <a href="openModal" data-bs-toggle="modal" class="btn btn-outline-warning mt-1 mb-1"
-                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 6.30rem; --bs-btn-font-size: .75rem;"
-                   data-bs-target="#not_found_recipients"> Рассылка
-                </a>
-                {% include 'mailing_service/not_found_recipients.html' %}
-                {% endif %}
-                <a href="openModal" class="btn btn-outline-danger"
-                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 6.50rem; --bs-btn-font-size: .75rem;"
-                   data-bs-toggle="modal"
-                   data-bs-target="#delete_mailing">Удалить</a>
-                {% include 'mailing_service/delete_mailing.html' %}
             </div>
         </div>
     </div>

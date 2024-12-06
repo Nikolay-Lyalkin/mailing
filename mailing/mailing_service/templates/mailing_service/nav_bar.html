@@ -110,7 +110,7 @@
                 Пользователь
             </button>
             {% if user.is_authenticated %}
-            <form method="post" action="#">
+            <form method="post" action="{% url 'auth_users:logout_views' %}">
                 {% csrf_token %}
                 <ul class="dropdown-menu">
                     <button type="submit" class="btn dropdown-item">Выйти</button>
@@ -119,11 +119,11 @@
             </form>
             {% else %}
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Войти</a></li>
+                <li><a class="dropdown-item" href="{% url 'auth_users:login_views' %}">Войти</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Регистрация</a></li>
+                <li><a class="dropdown-item" href="{% url 'auth_users:register_views' %}">Регистрация</a></li>
             </ul>
             {% endif %}
         </div>

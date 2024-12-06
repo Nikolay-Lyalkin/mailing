@@ -1,19 +1,26 @@
-<div class="modal fade" id="detail_message" tabindex="-1" aria-labelledby="detail_messageLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">  </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="container">
-                <div class="modal-body">
-                    <h5> Тема письма: {{ message.topic_message }} </h5>
-                    <h6> {{ message.message }} </h6>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+<!-- detail_messages.html -->
+{% extends 'mailing_service/base.html' %}
+
+{% block title %} Письмо {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center margin-top-main">Письмо</h1>
+<div class="row">
+    <div class="d-flex justify-content-evenly" style="margin-bottom:20px">
+        <div class="card text-center" style="width: 800px;">
+            <h6 class="card-header"> {{ message.topic_message }} </h6>
+            <div class="card-body">
+                <p class="card-text"> {{ message.message }} </p>
+                <a href="{% url 'mailing_service:update_message_views' message.pk %}"
+                   class="btn btn-outline-primary">Редактировать</a>
+                <a href="openModal" class="btn btn-outline-danger"
+                   data-bs-toggle="modal"
+                   data-bs-target="#delete_message">Удалить</a>
+                {% include 'mailing_service/delete_message.html' %}
+
             </div>
         </div>
     </div>
 </div>
+{% endblock %}

@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="modal-footer mx-auto">
-                <form method="post" action="{% url 'mailing_service:not_found_recipients_views' mail.pk %}">
+                <form method="post" action="{% url 'mailing_service:not_found_recipients_views' mailing.pk %}">
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
                 </form>

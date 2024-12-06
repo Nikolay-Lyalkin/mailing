@@ -1,0 +1,7 @@
+{% autoescape off %}
+
+Мы Вас приветствуем! Благодарим за регистрацию на нашем сайте!
+
+http://{{ domain }}{% url 'auth_users:verify_email_views' uidb64=uid token=token %}
+
+{% endautoescape %}

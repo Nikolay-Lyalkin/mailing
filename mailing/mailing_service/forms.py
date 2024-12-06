@@ -1,5 +1,6 @@
+from datetime import datetime
+
 from django import forms
-from datetimepicker.widgets import DateTimePicker
 
 from .models import RecipientMailing, Message, Mailing
 
@@ -51,28 +52,11 @@ class MailingForm(forms.ModelForm):
         model = Mailing
         fields = ["start_mailing", "end_mailing", "messages", "recipients"]
 
-# class FormForCreate(forms.ModelForm):
-#     name = forms.CharField(
-#         label="Наименование",
-#         validators=[validate_words],
-#         widget=forms.TextInput(attrs={"class": "form-control", "style": "width: 400px"}),
-#     )
-#     description = forms.CharField(
-#         label="Описание",
-#         validators=[validate_words],
-#         widget=forms.Textarea(attrs={"class": "form-control", "style": "height: 100px"}),
-#     )
-#     image = forms.ImageField(
-#         label="Изображение",
-#         validators=[FileExtensionValidator(["jpeg", "png"], "Изображение может быть формата: 'jpeg', 'png'")],
-#         widget=forms.FileInput(attrs={"class": "form-control"}),
-#     )
-#     category = forms.ModelChoiceField(
-#         label="Категория",
-#         queryset=Category.objects.all(),
-#         widget=forms.Select(attrs={"class": "form-select", "style": "width: 200px"}),
-#     )
-#     price = forms.DecimalField(
-#         label="Цена", widget=forms.TextInput(attrs={"class": "form-control", "style": "width: 200px"})
-#     )
-#     is_active = forms.BooleanField(label="Активность", required=False)
+    def clean_status(self):
+        """Валидация цены товара"""
+        status = self.cleaned_data.get("status")
+        end_mailing = self.cleaned_data.get("end_mailing")
+        if end_mailing and end_mailing < datetime.now():
+            status = "Завершена"
+
+        return status

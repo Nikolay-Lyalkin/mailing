@@ -36,9 +36,7 @@ class Message(models.Model):
 class Mailing(models.Model):
     start_mailing = models.DateTimeField(verbose_name="Дата время начала рассылки")
     end_mailing = models.DateTimeField(verbose_name="Дата время окончания рассылки")
-    status = models.CharField(verbose_name="Статус рассылки",
-                              choices=(("created", "Создана"), ("Launched", "Запущена"), ("Completed", "Завершена")),
-                              default="created")
+    status = models.CharField(verbose_name="Статус рассылки", default="Создана")
     messages = models.ForeignKey("Message", on_delete=models.DO_NOTHING, related_name="link_on_message", max_length=100,
                                  verbose_name="Письмо")
     recipients = models.ManyToManyField("RecipientMailing", verbose_name="Получатели", related_name="recipients")
@@ -56,7 +54,7 @@ class MailingAttempt(models.Model):
     datetime_attempt = models.DateTimeField(auto_now_add=True)
     status = models.CharField(verbose_name="Статус рассылки")
     mail_server_response = models.TextField(verbose_name="Ответ почтового сервера")
-    mailing = models.ForeignKey(Mailing, on_delete=models.DO_NOTHING, related_name="mailing")
+    mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, related_name="mailing")
 
     class Meta:
         verbose_name = "попытка рассылки"

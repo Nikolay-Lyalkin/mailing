@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="modal-footer mx-auto">
-                <form method="post" action="{% url 'mailing_service:delete_mailing_views' mail.id %}">
+                <form method="post" action="{% url 'mailing_service:delete_mailing_views' mailing.id %}">
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
                     <button type="submit" class="btn btn-danger">Удалить</button>
