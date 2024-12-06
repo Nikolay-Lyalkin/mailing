@@ -8,7 +8,6 @@ class CustomUser(AbstractUser):
     total_attempt = models.IntegerField(verbose_name="Всего попыток рассылки", default=0)
     successful_attempt = models.IntegerField(verbose_name="Успешных попыток рассылки", default=0)
     unsuccessful_attempt = models.IntegerField(verbose_name="Неуспешных попыток рассылки", default=0)
-    is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", ]

@@ -1,7 +1,13 @@
 {% autoescape off %}
 
-Мы Вас приветствуем! Благодарим за регистрацию на нашем сайте!
+Subject: Activate your account
 
-http://{{ domain }}{% url 'auth_users:verify_email_views' uidb64=uid token=token %}
+Hi {{ user.username }},
+
+Please click on the link below to activate your account:
+http://{{ domain }}{% url 'auth_users:activate_views' uidb64=uid token=token %}
+
+Thanks,
+Yourwebsite.com Team
 
 {% endautoescape %}

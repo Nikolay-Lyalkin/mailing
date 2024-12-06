@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RecipientMailing, Message, Mailing, MailingAttempt, NumAttempt
+from .models import RecipientMailing, Message, Mailing, MailingAttempt
 
 
 @admin.register(RecipientMailing)
@@ -39,14 +39,4 @@ class MailingAttemptAdmin(admin.ModelAdmin):
         "status",
         "mail_server_response",
         "mailing"
-    )
-
-
-@admin.register(NumAttempt)
-class NumAttemptAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "total_attempt",
-        "successful_attempt",
-        "unsuccessful_attempt"
     )

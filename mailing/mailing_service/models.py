@@ -60,15 +60,3 @@ class MailingAttempt(models.Model):
         verbose_name = "попытка рассылки"
         verbose_name_plural = "попытки рассылки"
         db_table = "mailing_attempt"
-
-
-class NumAttempt(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    total_attempt = models.IntegerField(verbose_name="Всего попыток рассылки")
-    successful_attempt = models.IntegerField(verbose_name="Успешных попыток рассылки")
-    unsuccessful_attempt = models.IntegerField(verbose_name="Неуспешных попыток рассылки")
-
-    class Meta:
-        verbose_name = "количество рассылок"
-        verbose_name_plural = "количество рассылок"
-        db_table = "num_attempt"
