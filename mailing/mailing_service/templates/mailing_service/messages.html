@@ -14,10 +14,15 @@
             <div class="card-body">
                 <h6 class="card-title"> {{ message.topic_message }} </h6>
                 <p class="card-text"> {{ message.message | truncatechars:1000 }} </p>
+                {% if message.created_by == user %}
                 <a href="{% url 'mailing_service:detail_message_views' message.pk %}"
                    class="btn btn-outline-primary">Посмотреть</a>
                 <a href="{% url 'mailing_service:update_message_views' message.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
+                {% else %}
+                <a href="{% url 'mailing_service:detail_message_views' message.pk %}"
+                   class="btn btn-outline-primary">Посмотреть</a>
+                {% endif %}
             </div>
         </div>
     </div>

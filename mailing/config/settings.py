@@ -142,4 +142,15 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
 EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 # EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL")
 
-PASSWORD_RESET_TIMEOUT = 300
+# PASSWORD_RESET_TIMEOUT =
+
+# Страница возвращаемая неавторизованным пользователям
+LOGIN_URL = "auth_users:unauthorized_user_views"
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}

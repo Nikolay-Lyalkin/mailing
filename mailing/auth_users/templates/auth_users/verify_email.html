@@ -2,12 +2,12 @@
 
 Subject: Activate your account
 
-Hi {{ user.username }},
+Приветствую Вас {{ user.username }},
 
-Please click on the link below to activate your account:
+Пожалуйста, перейдите по ссылке ниже, чтобы активировать свою учетную запись:
 http://{{ domain }}{% url 'auth_users:activate_views' uidb64=uid token=token %}
 
-Thanks,
-Yourwebsite.com Team
+Спасибо,
+MailingService.ru Team
 
 {% endautoescape %}
