@@ -1,7 +1,13 @@
 {% autoescape off %}
 
-Мы Вас приветствуем! Благодарим за регистрацию на нашем сайте!
+Subject: Activate your account
 
-http://{{ domain }}{% url 'auth_users:verify_email_views' uidb64=uid token=token %}
+Приветствую Вас {{ user.username }},
+
+Пожалуйста, перейдите по ссылке ниже, чтобы активировать свою учетную запись:
+http://{{ domain }}{% url 'auth_users:activate_views' uidb64=uid token=token %}
+
+Спасибо,
+MailingService.ru Team
 
 {% endautoescape %}

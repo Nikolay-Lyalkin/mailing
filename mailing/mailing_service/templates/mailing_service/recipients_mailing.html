@@ -14,10 +14,15 @@
             <div class="card-body">
                 <h6 class="card-title"> {{ recipient.email }} </h6>
                 <p class="card-text"> {{ recipient.comment|truncatechars:50 }} </p>
+                {% if recipient.created_by == user %}
                 <a href="{% url 'mailing_service:detail_recipient_views' recipient.pk %}"
                    class="btn btn-outline-primary">Посмотреть</a>
                 <a href="{% url 'mailing_service:update_recipient_views' recipient.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
+                {% else %}
+                <a href="{% url 'mailing_service:detail_recipient_views' recipient.pk %}"
+                   class="btn btn-outline-primary">Посмотреть</a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -6,7 +6,21 @@ from auth_users.models import CustomUser
 # Create your models here.
 
 
-class RecipientMailing(models.Model):
+class CreatedByMixin(models.Model):
+
+    created_by = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="%(class)s_created",
+        verbose_name="Created By",
+        editable=False,
+    )
+
+    class Meta:
+        abstract = True
+
+
+class RecipientMailing(CreatedByMixin, models.Model):
     email = models.EmailField(max_length=100, verbose_name="Email")
     full_name = models.CharField(verbose_name="ФИО")
     comment = models.TextField(verbose_name="Комментарий")
@@ -18,9 +32,10 @@ class RecipientMailing(models.Model):
         verbose_name = "получатель"
         verbose_name_plural = "получатели"
         db_table = "recipient_mailing"
+        permissions = [("can_view_all_recipient_lists", "can view all recipient lists")]
 
 
-class Message(models.Model):
+class Message(CreatedByMixin, models.Model):
     topic_message = models.CharField(verbose_name="Тема письма")
     message = models.TextField(verbose_name="Содержание письма")
 
@@ -31,14 +46,16 @@ class Message(models.Model):
         verbose_name = "письмо"
         verbose_name_plural = "письма"
         db_table = "message"
+        permissions = [("can_view_all_message_lists", "can view all message lists")]
 
 
-class Mailing(models.Model):
+class Mailing(CreatedByMixin, models.Model):
     start_mailing = models.DateTimeField(verbose_name="Дата время начала рассылки")
     end_mailing = models.DateTimeField(verbose_name="Дата время окончания рассылки")
     status = models.CharField(verbose_name="Статус рассылки", default="Создана")
-    messages = models.ForeignKey("Message", on_delete=models.DO_NOTHING, related_name="link_on_message", max_length=100,
-                                 verbose_name="Письмо")
+    messages = models.ForeignKey(
+        "Message", on_delete=models.CASCADE, related_name="link_on_message", max_length=100, verbose_name="Письмо"
+    )
     recipients = models.ManyToManyField("RecipientMailing", verbose_name="Получатели", related_name="recipients")
 
     def __str__(self):
@@ -48,6 +65,10 @@ class Mailing(models.Model):
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
         db_table = "mailing"
+        permissions = [
+            ("can_disable_mailing", "can disable mailing"),
+            ("can_view_all_mailing_lists", "can view all mailing lists"),
+        ]
 
 
 class MailingAttempt(models.Model):
@@ -60,15 +81,3 @@ class MailingAttempt(models.Model):
         verbose_name = "попытка рассылки"
         verbose_name_plural = "попытки рассылки"
         db_table = "mailing_attempt"
-
-
-class NumAttempt(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    total_attempt = models.IntegerField(verbose_name="Всего попыток рассылки")
-    successful_attempt = models.IntegerField(verbose_name="Успешных попыток рассылки")
-    unsuccessful_attempt = models.IntegerField(verbose_name="Неуспешных попыток рассылки")
-
-    class Meta:
-        verbose_name = "количество рассылок"
-        verbose_name_plural = "количество рассылок"
-        db_table = "num_attempt"

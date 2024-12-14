@@ -12,13 +12,14 @@
             <h6 class="card-header"> {{ message.topic_message }} </h6>
             <div class="card-body">
                 <p class="card-text"> {{ message.message }} </p>
+                {% if message.created_by == user %}
                 <a href="{% url 'mailing_service:update_message_views' message.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
                 <a href="openModal" class="btn btn-outline-danger"
                    data-bs-toggle="modal"
                    data-bs-target="#delete_message">Удалить</a>
                 {% include 'mailing_service/delete_message.html' %}
-
+                {% endif %}
             </div>
         </div>
     </div>
