@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RecipientMailing, Message, Mailing, MailingAttempt, NumAttempt
+from .models import RecipientMailing, Message, Mailing, MailingAttempt
 
 
 @admin.register(RecipientMailing)
@@ -18,15 +18,11 @@ class MessageAdmin(admin.ModelAdmin):
         "message",
     )
 
+
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    fields = ['start_mailing', 'end_mailing', "messages", "recipients"]
-    list_display = (
-        "start_mailing",
-        "end_mailing",
-        "messages",
-        "get_recipients"
-    )
+    fields = ["start_mailing", "end_mailing", "messages", "recipients"]
+    list_display = ("start_mailing", "end_mailing", "messages", "get_recipients")
 
     def get_recipients(self, obj):
         return "\n".join([p.recipient for p in obj.recipients.all()])
@@ -34,19 +30,4 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(MailingAttempt)
 class MailingAttemptAdmin(admin.ModelAdmin):
-    list_display = (
-        "datetime_attempt",
-        "status",
-        "mail_server_response",
-        "mailing"
-    )
-
-
-@admin.register(NumAttempt)
-class NumAttemptAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "total_attempt",
-        "successful_attempt",
-        "unsuccessful_attempt"
-    )
+    list_display = ("datetime_attempt", "status", "mail_server_response", "mailing")

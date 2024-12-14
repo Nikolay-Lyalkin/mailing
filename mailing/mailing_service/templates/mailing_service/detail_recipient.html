@@ -13,13 +13,14 @@
             <div class="card-body">
                 <h6 class="card-title"> Email - {{ recipient.email }} </h6>
                 <p class="card-text"> {{ recipient.comment }} </p>
+                {% if recipient.created_by == user %}
                 <a href="{% url 'mailing_service:update_recipient_views' recipient.pk %}"
                    class="btn btn-outline-primary">Редактировать</a>
                 <a href="openModal" class="btn btn-outline-danger"
                    data-bs-toggle="modal"
                    data-bs-target="#delete_recipient">Удалить</a>
                 {% include 'mailing_service/delete_recipient.html' %}
-
+                {% endif %}
             </div>
         </div>
     </div>

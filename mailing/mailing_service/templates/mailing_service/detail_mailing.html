@@ -16,6 +16,7 @@
                 <p class="card-text"> Получатели:{% for recipient in mailing.recipients.all %} <br>{{ recipient.full_name }} -
                     {{ recipient.email }}
                     {% endfor %} </p>
+                {% if mailing.created_by == user %}
                 <a href="{% url 'mailing_service:update_mailing_views' mailing.pk %}"
                    class="btn btn-outline-primary"
                    style="--bs-btn-padding-y: .35rem; --bs-btn-padding-x: 10.30rem; --bs-btn-font-size: 1.0rem;">
@@ -40,6 +41,7 @@
                    data-bs-toggle="modal"
                    data-bs-target="#delete_mailing">Удалить</a>
                 {% include 'mailing_service/delete_mailing.html' %}
+                {% endif %}
             </div>
         </div>
     </div>
